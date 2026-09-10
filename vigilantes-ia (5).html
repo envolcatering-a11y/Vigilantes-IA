@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigilantes — Poliservicios Coronel Jiménez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white: #FFFFFF;
+    --ink: #0B0B0C;
+    --ink-dim: #5B6472;
+    --navy-900: #0A1B33;
+    --navy-800: #122A4C;
+    --navy-700: #1E3D66;
+    --cyan: #49DCE8;
+    --cyan-soft: rgba(73,220,232,0.14);
+    --cyan-line: rgba(73,220,232,0.35);
+    --sand: #D9C3A0;
+    --sand-deep: #B99B6D;
+    --sand-ink: #3B2F20;
+    --line: rgba(11,11,12,0.10);
+    --line-dark: rgba(255,255,255,0.16);
+    --radius-sm: 6px;
+    --radius-pill: 999px;
+    --font-head: "Manrope", "Arial Black", sans-serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0; background: var(--white); color: var(--ink);
+    font-family: var(--font-body); line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  :focus-visible{ outline: 2px solid var(--navy-700); outline-offset: 3px; }
+
+  .wrap{ max-width: 1160px; margin: 0 auto; padding: 0 30px; }
+  @media (max-width:640px){ .wrap{ padding: 0 20px; } }
+
+  /* ---------- header (blanco, negro — como la tienda) ---------- */
+  header{
+    position: sticky; top:0; z-index: 40;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 18px 0; }
+  .brand-name{ font-family: var(--font-head); font-size: clamp(1.15rem, 2.2vw, 1.55rem); font-weight:800; color: var(--ink); letter-spacing:-0.01em; line-height:1.15; }
+  .brand-sub{ font-size: 0.66rem; color: var(--ink-dim); margin-top:3px; letter-spacing:0.01em; }
+  .nav-links{ display:flex; gap: 30px; align-items:center; }
+  .nav-links a{ text-decoration:none; font-size: 0.92rem; color: var(--ink); transition: opacity .15s; }
+  .nav-links a:hover{ opacity: 0.6; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding: 12px 22px;
+    border-radius: var(--radius-pill); font-size: 0.9rem; font-weight: 600;
+    text-decoration:none; border: 1px solid transparent; cursor:pointer;
+  }
+  .btn-black{ background: var(--ink); color: var(--white); }
+  .btn-black:hover{ background: #262626; }
+  .btn-cyan{ background: var(--cyan); color: #052226; }
+  .btn-cyan:hover{ background:#63e2ec; }
+  .btn-ghost{ border-color: var(--line); color: var(--ink); }
+  .btn-ghost:hover{ border-color: var(--ink-dim); }
+  .btn-ghost-light{ border-color: var(--line-dark); color: var(--white); }
+  .btn-ghost-light:hover{ border-color: rgba(255,255,255,0.5); }
+  @media (max-width:820px){ .nav-links{ display:none; } }
+
+  /* ---------- hero: panel marino sólido + la foto asoma en una esquina ---------- */
+  .hero{
+    position:relative; color: var(--white); overflow:visible;
+    background:
+      radial-gradient(680px 480px at 88% 15%, rgba(73,220,232,0.16) 0%, transparent 60%),
+      linear-gradient(155deg, var(--navy-900) 0%, #0D2140 62%, var(--navy-800) 100%);
+    padding: 84px 0 120px;
+  }
+  .hero-grid{ position:relative; display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items:center; }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns: 1fr; } }
+  .hero h1{
+    font-family: var(--font-head); font-weight: 800;
+    font-size: clamp(2.05rem, 4.4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.01em;
+    margin: 0 0 18px; max-width: 15ch;
+  }
+  .hero p.lede{ font-size: 1.05rem; color: rgba(255,255,255,0.78); max-width: 44ch; margin: 0 0 28px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* tarjeta-foto en la esquina: no ocupa todo el hero, asoma con actitud */
+  .hero-photo-slot{ position:relative; height: 100%; min-height: 260px; display:flex; align-items:flex-end; justify-content:flex-end; }
+  .hero-photo-card{
+    position:relative; z-index:2;
+    width: min(90%, 440px); aspect-ratio: 2 / 1; border-radius: 26px 8px 26px 8px;
+    overflow:hidden; transform: rotate(-3deg);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.18);
+    margin: 0 -6px -34px 0;
+  }
+  .hero-photo-card img{ width:100%; height:100%; object-fit:cover; object-position: center 18%; display:block; }
+  .hero-photo-glow{
+    position:absolute; right: -30px; bottom: -46px; width: 300px; height:220px; z-index:1;
+    background: radial-gradient(circle, rgba(73,220,232,0.35) 0%, transparent 70%);
+    filter: blur(6px);
+  }
+  .hero-photo-chip{
+    position:absolute; z-index:3; left: 4%; top: -16px;
+    background: var(--white); color: var(--ink);
+    font-size: 0.72rem; font-weight:700; padding: 8px 14px; border-radius: var(--radius-pill);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    transform: rotate(-3deg);
+  }
+  @media (max-width:900px){
+    .hero-photo-slot{ justify-content:center; margin-top: 12px; }
+    .hero-photo-card{ margin: 0 0 -10px; width: min(72%, 300px); }
+  }
+
+  /* franja de datos rápidos, marino con línea cian */
+  .quickfacts{ background: var(--navy-900); border-top: 1px solid var(--cyan-line); }
+  .qf-grid{ display:grid; grid-template-columns: repeat(4,1fr); }
+  @media (max-width:760px){ .qf-grid{ grid-template-columns: repeat(2,1fr); } }
+  .qf-item{ padding: 22px 26px; border-left: 1px solid var(--line-dark); }
+  .qf-item:first-child{ border-left:none; }
+  .qf-k{ font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-bottom:6px; }
+  .qf-v{ font-family: var(--font-head); font-weight:700; font-size: 1.02rem; color: var(--white); }
+
+  /* ---------- section shells ---------- */
+  section{ padding: 90px 0; }
+  .section-head h2{
+    font-family: var(--font-head); font-weight:800; letter-spacing:-0.01em;
+    font-size: clamp(1.65rem, 2.7vw, 2.2rem); margin: 0 0 14px; max-width: 30ch;
+  }
+  .section-lede{ color: var(--ink-dim); max-width: 58ch; font-size:1.02rem; margin:0 0 46px; }
+
+  /* distinción humano/digital — sand vs navy, igual que la foto de portada */
+  .distinction-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width:760px){ .distinction-grid{ grid-template-columns: 1fr; } }
+  .dcard{ padding: 36px 34px; border-radius: var(--radius-sm); }
+  .dcard.sand{ background: var(--sand); color: var(--sand-ink); }
+  .dcard.navy{ background: var(--navy-900); color: var(--white); position:relative; overflow:hidden; }
+  .dcard.navy::after{
+    content:""; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle, var(--cyan-soft) 0%, transparent 70%);
+  }
+  .dcard .tag{ font-size:0.72rem; font-weight:700; letter-spacing:0.02em; margin-bottom: 12px; display:block; }
+  .dcard.sand .tag{ color: var(--sand-deep); }
+  .dcard.navy .tag{ color: var(--cyan); }
+  .dcard h3{ font-family: var(--font-head); font-weight:800; font-size:1.28rem; margin:0 0 10px; position:relative; z-index:1; }
+  .dcard p{ margin:0; font-size:0.97rem; max-width: 42ch; position:relative; z-index:1; }
+  .dcard.sand p{ color: rgba(59,47,32,0.82); }
+  .dcard.navy p{ color: rgba(255,255,255,0.78); }
+
+  /* how it works */
+  .steps{ counter-reset: step; }
+  .step{ display:grid; grid-template-columns: 56px 1fr; gap: 22px; padding: 27px 0; border-top: 1px solid var(--line); }
+  .step:last-child{ border-bottom: 1px solid var(--line); }
+  .step-num{ counter-increment: step; font-family: var(--font-head); font-weight:800; font-size: 1.05rem; color: var(--navy-700); }
+  .step-num::before{ content: counter(step, decimal-leading-zero); }
+  .step h3{ font-family: var(--font-head); font-weight:700; font-size:1.12rem; margin: 0 0 6px; }
+  .step p{ color: var(--ink-dim); margin:0; max-width: 60ch; font-size: 0.98rem; }
+
+  /* pricing */
+  .price-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items:stretch; }
+  @media (max-width:820px){ .price-grid{ grid-template-columns: 1fr; } }
+  .price-card{ border-radius: var(--radius-sm); padding: 36px 34px; display:flex; flex-direction:column; }
+  .price-card.sand{ background: var(--sand); color: var(--sand-ink); }
+  .price-card.navy{ background: var(--navy-900); color: var(--white); position:relative; overflow:hidden; }
+  .price-card.navy::after{
+    content:""; position:absolute; right:-50px; bottom:-70px; width:230px; height:230px; border-radius:50%;
+    background: radial-gradient(circle, var(--cyan-soft) 0%, transparent 70%);
+  }
+  .price-kicker{ font-size: 0.72rem; font-weight:700; margin-bottom: 14px; position:relative; z-index:1; }
+  .price-card.sand .price-kicker{ color: var(--sand-deep); }
+  .price-card.navy .price-kicker{ color: var(--cyan); }
+  .price-card h3{ font-family: var(--font-head); font-weight:800; font-size:1.34rem; margin: 0 0 10px; position:relative; z-index:1; }
+  .price-card .desc{ font-size:0.95rem; margin: 0 0 22px; position:relative; z-index:1; }
+  .price-card.sand .desc{ color: rgba(59,47,32,0.82); }
+  .price-card.navy .desc{ color: rgba(255,255,255,0.78); }
+  .price-amount{ font-family: var(--font-head); font-size: 2.15rem; font-weight:800; margin-bottom: 4px; position:relative; z-index:1; }
+  .price-amount .unit{ font-size:0.9rem; font-weight:500; font-family: var(--font-body); }
+  .price-card.sand .price-amount .unit{ color: var(--sand-ink); opacity:0.6; }
+  .price-card.navy .price-amount .unit{ color: rgba(255,255,255,0.65); }
+  .price-amount.quote{ font-size: 1.5rem; }
+  .price-list{ list-style:none; margin: 18px 0 26px; padding:0; display:flex; flex-direction:column; gap:9px; flex-grow:1; position:relative; z-index:1; }
+  .price-list li{ font-size:0.92rem; padding-left: 20px; position:relative; }
+  .price-card.sand .price-list li{ color: rgba(59,47,32,0.82); }
+  .price-card.navy .price-list li{ color: rgba(255,255,255,0.78); }
+  .price-list li::before{ content:"·"; position:absolute; left:4px; font-weight:800; }
+  .price-card.sand .price-list li::before{ color: var(--sand-deep); }
+  .price-card.navy .price-list li::before{ color: var(--cyan); }
+  .price-card .btn{ position:relative; z-index:1; align-self:flex-start; }
+
+  /* calendly */
+  .booking{ background: var(--navy-900); color: var(--white); }
+  .booking .section-lede{ color: rgba(255,255,255,0.72); }
+  .booking-card{
+    background: var(--navy-800); border: 1px solid var(--line-dark); border-radius: var(--radius-sm);
+    padding: 40px; display:grid; grid-template-columns: 1fr auto; gap: 30px; align-items:center;
+  }
+  @media (max-width:700px){ .booking-card{ grid-template-columns:1fr; text-align:left; } }
+  .booking-card h3{ font-family: var(--font-head); font-weight:800; font-size:1.3rem; margin:0 0 8px; }
+  .booking-card p{ color: rgba(255,255,255,0.72); margin:0; max-width: 52ch; font-size:0.96rem; }
+  .booking-actions{ display:flex; flex-direction:column; gap:10px; }
+
+  /* footer (blanco, como la tienda) */
+  footer{ background: var(--white); color: var(--ink); padding: 50px 0 34px; border-top: 1px solid var(--line); }
+  .footer-grid{ display:flex; justify-content:space-between; gap: 40px; flex-wrap:wrap; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+  .footer-grid h3{ font-family: var(--font-head); font-weight:800; margin: 0 0 10px; font-size:1rem; }
+  .footer-grid p{ color: var(--ink-dim); margin:0 0 4px; font-size:0.92rem; max-width: 40ch; }
+  .footer-grid a{ color: var(--navy-700); text-decoration:none; }
+  .footer-grid a:hover{ text-decoration:underline; }
+  .footer-bottom{ padding-top: 20px; font-size: 0.8rem; color: var(--ink-dim); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div>
+      <div class="brand-name">Poliservicios Coronel Jiménez SL.</div>
+      <div class="brand-sub">Vigilantes — vigilancia inteligente</div>
+    </div>
+    <nav class="nav-links">
+      <a href="#diferencia">Agente vs. Vigilante</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#precio">Precio</a>
+      <a href="#reserva">Reservar cita</a>
+    </nav>
+    <a class="btn btn-black" href="#reserva">Solicita tu servicio</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>De la persona que atiende, al equipo que vigila.</h1>
+      <p class="lede">Vigilantes lleva la misma tecnología de nuestros agentes virtuales a la vigilancia de tu negocio: observa tu local a través de las cámaras que ya tienes y te avisa por WhatsApp al instante.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-cyan" href="#reserva">Reservar una cita</a>
+        <a class="btn btn-ghost-light" href="#diferencia">Ver diferencia con el Agente Virtual</a>
+      </div>
+    </div>
+    <div class="hero-photo-slot">
+      <div class="hero-photo-glow" aria-hidden="true"></div>
+      <div class="hero-photo-card">
+        <span class="hero-photo-chip">Agente ⇄ Vigilante</span>
+        <img src="https://poliservicios-coronel-jimenez-sl.myshopify.com/cdn/shop/files/image_f220c56c-4fbc-4b70-bd4e-18a5f73d3267.png?v=1780832108&width=900" alt="Poliservicios: del servicio profesional a la vigilancia inteligente">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="quickfacts">
+  <div class="wrap qf-grid">
+    <div class="qf-item"><div class="qf-k">Cobertura</div><div class="qf-v">24 horas, 7 días</div></div>
+    <div class="qf-item"><div class="qf-k">Aviso</div><div class="qf-v">WhatsApp inmediato</div></div>
+    <div class="qf-item"><div class="qf-k">Composición</div><div class="qf-v">Equipo a medida</div></div>
+    <div class="qf-item"><div class="qf-k">Precio</div><div class="qf-v">Bajo presupuesto</div></div>
+  </div>
+</div>
+
+<section id="diferencia">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Dos servicios, dos formas de precio</h2>
+      <p class="section-lede">No son lo mismo, y por eso no se cobran igual. Uno resuelve una tarea; el otro cuida un lugar.</p>
+    </div>
+    <div class="distinction-grid">
+      <div class="dcard sand">
+        <span class="tag">Agente Virtual</span>
+        <h3>Resuelve un tema concreto</h3>
+        <p>Atiende consultas, gestiona citas y da soporte a tus clientes. Un servicio de precio fijo, pensado para una tarea bien definida — por eso tiene una cuota mensual cerrada de 19€.</p>
+      </div>
+      <div class="dcard navy">
+        <span class="tag">Vigilante</span>
+        <h3>Cuida un lugar de forma continua</h3>
+        <p>No resuelve una consulta puntual: vigila tu local todo el día, todos los días. Al ser un equipo dimensionado a tu negocio, su precio se ajusta con un presupuesto — no es una cuota fija.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" style="background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cómo funciona el servicio de Vigilantes</h2>
+      <p class="section-lede">Un proceso claro, sin instalaciones complicadas. La primera hora de configuración está incluida.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Valoramos tu local</h3><p>Revisamos el número de cámaras, accesos y puntos a cubrir para dimensionar el equipo de vigilancia adecuado.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Conectamos el sistema</h3><p>Nos integramos con las cámaras que ya tienes instaladas. No es necesario comprar equipos nuevos ni realizar obra.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Vigilancia continua</h3><p>El equipo observa tu local las 24 horas, identificando comportamientos que se salen de lo habitual.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Aviso inmediato</h3><p>Ante cualquier incidencia relevante, recibes un aviso por WhatsApp al momento, para decidir cómo actuar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="precio">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Precio</h2>
+      <p class="section-lede">Elige el servicio según lo que necesitas resolver.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card sand">
+        <span class="price-kicker">Tarea puntual</span>
+        <h3>Agente Virtual</h3>
+        <p class="desc">Atención al cliente, gestión de citas y soporte online, resuelto por un agente disponible las 24 horas.</p>
+        <div class="price-amount">19€ <span class="unit">/ mes</span></div>
+        <ul class="price-list">
+          <li>Suscripción mensual sin permanencia</li>
+          <li>Primera hora de configuración incluida</li>
+          <li>Presupuesto aparte para necesidades adicionales</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://poliservicios-coronel-jimenez-sl.myshopify.com/products/servicio-de-agentes-virtuales">Solicitar en la tienda</a>
+      </div>
+      <div class="price-card navy">
+        <span class="price-kicker">Vigilancia continua</span>
+        <h3>Vigilantes</h3>
+        <p class="desc">Un equipo que cuida tu local de forma permanente y te avisa ante cualquier incidencia.</p>
+        <div class="price-amount quote">Bajo presupuesto</div>
+        <ul class="price-list">
+          <li>Se ajusta al número de cámaras y accesos de tu local</li>
+          <li>Equipo dimensionado según tu negocio</li>
+          <li>Primera hora de configuración incluida</li>
+        </ul>
+        <a class="btn btn-cyan" href="#reserva">Solicitar presupuesto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reserva" class="booking">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Reserva una cita</h2>
+      <p class="section-lede">Elige el día y la hora que mejor te vengan. En la llamada valoramos tu local y preparamos el presupuesto del servicio de Vigilantes.</p>
+    </div>
+    <div class="booking-card">
+      <div>
+        <h3>Consulta de valoración</h3>
+        <p>Una llamada breve para conocer tu local y ajustar el equipo y el presupuesto de Vigilantes a tu medida.</p>
+      </div>
+      <div class="booking-actions">
+        <!-- Sustituir el href por el enlace real de Calendly, p. ej. https://calendly.com/tu-usuario/valoracion-vigilantes -->
+        <a class="btn btn-cyan" href="#" id="calendlyLink">Elegir día y hora</a>
+        <a class="btn btn-ghost-light" href="mailto:envolcatering@gmail.com?subject=Presupuesto%20servicio%20de%20Vigilantes">Escribir por email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Vigilantes</h3>
+        <p>Un servicio de Poliservicios Coronel Jiménez SL. Un equipo que vigila tu local de forma continua, sobre las cámaras que ya tienes.</p>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <p><a href="mailto:envolcatering@gmail.com">envolcatering@gmail.com</a></p>
+        <p>España</p>
+      </div>
+    </div>
+    <div class="wrap footer-bottom" style="padding:0;">
+      <span>© 2026 Poliservicios Coronel Jiménez SL.</span>
+      <span>Agente Virtual · Vigilantes</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
