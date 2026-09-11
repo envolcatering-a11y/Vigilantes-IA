@@ -201,6 +201,10 @@
   .booking-card h3{ font-family: var(--font-head); font-weight:800; font-size:1.3rem; margin:0 0 8px; }
   .booking-card p{ color: rgba(255,255,255,0.72); margin:0; max-width: 52ch; font-size:0.96rem; }
   .booking-actions{ display:flex; flex-direction:column; gap:10px; }
+  .booking-widget-card{
+    background: var(--white); border-radius: var(--radius-sm); overflow:hidden;
+    margin-top: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
 
   /* footer (blanco, como la tienda) */
   footer{ background: var(--white); color: var(--ink); padding: 50px 0 34px; border-top: 1px solid var(--line); }
@@ -354,10 +358,13 @@
         <p>Una llamada breve para conocer tu local y ajustar el equipo y el presupuesto de Vigilantes a tu medida.</p>
       </div>
       <div class="booking-actions">
-        <!-- Sustituir el href por el enlace real de Calendly, p. ej. https://calendly.com/tu-usuario/valoracion-vigilantes -->
-        <a class="btn btn-cyan" href="#" id="calendlyLink">Elegir día y hora</a>
+        <a class="btn btn-cyan" href="https://calendly.com/angeelejr/30min" target="_blank" rel="noopener" id="calendlyLink">Elegir día y hora</a>
         <a class="btn btn-ghost-light" href="mailto:envolcatering@gmail.com?subject=Presupuesto%20servicio%20de%20Vigilantes">Escribir por email</a>
       </div>
+    </div>
+    <div class="booking-widget-card">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/angeelejr/30min?primary_color=49dce8" style="min-width:280px;height:680px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
   </div>
 </section>
